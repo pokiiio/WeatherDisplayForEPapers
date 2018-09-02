@@ -11,7 +11,8 @@
 ## もう少し詳しく
  - PythonとPILで画像を作成
  - 画像サイズは固定 （264x176）
- - 情報はlivedoorの天気予報API（無料）を利用 （http://weather.livedoor.com/weather_hacks/webservice）
+ - ~情報はlivedoorの天気予報API（無料）を利用 （http://weather.livedoor.com/weather_hacks/webservice）~
+     - このブランチでは気象庁 （https://www.jma.go.jp/jp/yoho/320.html) のデータを利用
  - 横浜の天気を取得するようにハードコードしている
  - 「今日」「明日」の天気（文字とアイコン）と最高・最低気温を表示
  - フォントは毎度おなじみのM+ FONTS （https://mplus-fonts.osdn.jp/）
