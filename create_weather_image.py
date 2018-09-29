@@ -6,6 +6,7 @@ import json
 from os import path
 from PIL import Image, ImageDraw, ImageFont
 from StringIO import StringIO
+import textwrap
 
 WIDTH = 264
 HEIGHT = 176
@@ -23,24 +24,13 @@ draw.font = FONT
 
 draw.text((12, 8), jsonData["title"], (0, 0, 0))
 
-for index in range(2):
-    forecast = jsonData["forecasts"][index]
-    icon = Image.open(StringIO(requests.get(forecast["image"]["url"]).content))
-    icon = icon.resize((100, 62), Image.LANCZOS)
-    image.paste(icon, (10, 36 + 4 + index * 70))
+description = jsonData["description"]["text"].replace("\n", "").strip()
 
-    minTemp = u"―℃"
-    maxTemp = u"―℃"
+if len(description) > 13 * 5:
+    description = description[0:13 * 5 - 1] + u"…"
 
-    if forecast["temperature"]["min"] is not None:
-        minTemp = forecast["temperature"]["min"]["celsius"] + u"℃"
+description = textwrap.fill(description, width=13)
 
-    if forecast["temperature"]["max"] is not None:
-        maxTemp = forecast["temperature"]["max"]["celsius"] + u"℃"
-
-    draw.text((110, 36 + 4 + index * 70),
-              forecast["dateLabel"] + " : " + forecast["telop"], (0, 0, 0))
-    draw.text((110, 36 + 4 + 18 + index * 70), u"最高気温 " + maxTemp, (0, 0, 0))
-    draw.text((110, 36 + 4 + 36 + index * 70), u"最低気温 " + minTemp, (0, 0, 0))
+draw.text((12, 40), description, (0, 0, 0))
 
 image.save(IMAGE_FILE)
