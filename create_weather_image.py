@@ -10,7 +10,7 @@ import textwrap
 
 WIDTH = 264
 HEIGHT = 176
-URL = "http://weather.livedoor.com/forecast/webservice/json/v1?city=140010"
+URL = "http://weather.livedoor.com/forecast/webservice/json/v1?city=130010"
 FONT_SIZE = 18
 FONT_PATH = path.dirname(path.abspath(__file__)) + "/mplus-2p-heavy.ttf"
 FONT = ImageFont.truetype(FONT_PATH, FONT_SIZE, encoding="unic")
