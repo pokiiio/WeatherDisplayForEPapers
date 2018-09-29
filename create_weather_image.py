@@ -25,7 +25,7 @@ for index in range(2):
     forecast = jsonData["forecasts"][index]
     icon = Image.open(StringIO(requests.get(forecast["image"]["url"]).content))
     icon = icon.resize((100, 62), Image.LANCZOS)
-    image.paste(icon, (10, 13 + index * 88))
+    image.paste(icon, (10, 36 + 4 + index * 70))
 
     minTemp = u"―℃"
     maxTemp = u"―℃"
@@ -36,9 +36,9 @@ for index in range(2):
     if forecast["temperature"]["max"] is not None:
         maxTemp = forecast["temperature"]["max"]["celsius"] + u"℃"
 
-    draw.text((110, 13 + index * 88),
+    draw.text((110, 36 + 4 + index * 70),
               forecast["dateLabel"] + " : " + forecast["telop"], (0, 0, 0))
-    draw.text((110, 13 + 18 + index * 88), u"最高気温 " + maxTemp, (0, 0, 0))
-    draw.text((110, 13 + 36 + index * 88), u"最低気温 " + minTemp, (0, 0, 0))
+    draw.text((110, 36 + 4 + 18 + index * 70), u"最高気温 " + maxTemp, (0, 0, 0))
+    draw.text((110, 36 + 4 + 36 + index * 70), u"最低気温 " + minTemp, (0, 0, 0))
 
 image.save(IMAGE_FILE)
