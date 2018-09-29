@@ -21,6 +21,8 @@ image = Image.new("RGB", (WIDTH, HEIGHT), (255, 255, 255))
 draw = ImageDraw.Draw(image)
 draw.font = FONT
 
+draw.text((12, 8), u"横浜の天気", (0, 0, 0))
+
 for index in range(2):
     forecast = jsonData["forecasts"][index]
     icon = Image.open(StringIO(requests.get(forecast["image"]["url"]).content))
