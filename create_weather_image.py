@@ -10,7 +10,7 @@ from StringIO import StringIO
 WIDTH = 264
 HEIGHT = 176
 URL = "https://www.jma.go.jp/jp/yoho/320.html"
-FONT_SIZE = 18
+FONT_SIZE = 16
 FONT_PATH = path.dirname(path.abspath(__file__)) + "/mplus-2p-heavy.ttf"
 FONT = ImageFont.truetype(FONT_PATH, FONT_SIZE, encoding="unic")
 IMAGE_FILE = path.dirname(path.abspath(__file__)) + "/image.png"
@@ -32,23 +32,33 @@ for index in range(2):
     background = Image.new('RGBA', icon.size, 'white')
     icon = Image.alpha_composite(background, icon)
 
-    icon = icon.resize((100, 62), Image.LANCZOS)
-    image.paste(icon, (10, 13 + index * 88))
+    icon = icon.resize((72, 36), Image.LANCZOS)
+    image.paste(icon, (4, 13 +14 + index * 88))
 
     minTemp = u"―℃"
     maxTemp = u"―℃"
 
     if forecast.find("<td class=\"min\">") > -1:
         minTemp = forecast.split("<td class=\"min\">")[
-            1].split("</td>")[0].replace(u"度", "") + u"℃"
+            1].split("</td>")[0].replace(u"度", "").strip()
+
+        if len(minTemp) == 0:
+            minTemp = "-"
+
+        minTemp += u"℃"
 
     if forecast.find("<td class=\"max\">") > -1:
         maxTemp = forecast.split("<td class=\"max\">")[
-            1].split("</td>")[0].replace(u"度", "") + u"℃"
+            1].split("</td>")[0].replace(u"度", "").strip()
+        
+        if len(maxTemp) == 0:
+            maxTemp = "-"
 
-    draw.text((110, 13 + index * 88),
+        maxTemp += u"℃"
+
+    draw.text((80, 13 + index * 88),
               forecast.split("<br>")[0].replace("\n", "") + " : " + forecast.split("title=\"")[1].split("\"")[0], (0, 0, 0))
-    draw.text((110, 13 + 18 + index * 88), u"最高気温 " + maxTemp, (0, 0, 0))
-    draw.text((110, 13 + 36 + index * 88), u"最低気温 " + minTemp, (0, 0, 0))
+    draw.text((80, 13 + 18 + index * 88), u"最高気温 " + maxTemp, (0, 0, 0))
+    draw.text((80, 13 + 36 + index * 88), u"最低気温 " + minTemp, (0, 0, 0))
 
 image.save(IMAGE_FILE)
